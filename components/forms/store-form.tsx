@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -22,15 +23,20 @@ const formSchema = z.object({
   name: z.string().min(1, {
     message: "Name must contain at least 1 character.",
   }),
+  description: z.string().min(1, {
+    message: "Name must contain at least 1 character.",
+  }),
 });
 
 const StoreForm = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
+      description: "",
     },
   });
 
@@ -38,9 +44,11 @@ const StoreForm = () => {
     try {
       setIsLoading(true);
       const response = await axios.post("/api/stores", values);
-      const data = response.data;
-      console.log(data);
-      return data;
+
+      if (response.status === 201) {
+        const storeId = response.data?.id;
+        router.push(`/${storeId}`);
+      }
     } catch (error) {
       console.error(error);
     } finally {
@@ -61,6 +69,25 @@ const StoreForm = () => {
               </FormControl>
               <FormDescription>
                 This will be displayed as your store name.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="where you find the best sweeties."
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription>
+                This will be displayed as your store description.
               </FormDescription>
               <FormMessage />
             </FormItem>
