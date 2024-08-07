@@ -11,7 +11,6 @@ export default function Home() {
         DASHBOARD PAGE
       </p>
       <div className="flex items-center justify-around">
-        <StoreModal />
         <Button>
           <LogoutLink>Logout</LogoutLink>
         </Button>

@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import axios from "axios";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -33,10 +34,13 @@ const StoreForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setIsLoading(true);
-      console.log(values.name);
+      const response = await axios.post("/api/stores", values);
+      const data = response.data;
+      console.log(data);
+      return data;
     } catch (error) {
       console.error(error);
     } finally {

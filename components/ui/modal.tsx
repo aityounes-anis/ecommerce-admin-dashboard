@@ -36,9 +36,6 @@ const Modal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onChange}>
-      <DialogTrigger onClick={onOpen}>
-        <Button variant="secondary">Create</Button>
-      </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
