@@ -23,6 +23,28 @@ export async function POST(req: Request) {
       );
     }
 
+    if (!description) {
+      return NextResponse.json({
+        message: "Description is required to create stores",
+      });
+    }
+
+    const existingStore = await prismadb.store.findFirst({
+      where: {
+        name: name,
+        userId: user.id,
+      },
+    });
+
+    if (existingStore) {
+      return NextResponse.json(
+        {
+          message: `There is already a store with that Name (${name})`,
+        },
+        { status: 400 }
+      );
+    }
+
     const store = await prismadb.store.create({
       data: {
         name,
