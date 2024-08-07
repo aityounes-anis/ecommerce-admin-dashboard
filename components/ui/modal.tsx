@@ -8,6 +8,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import useStoreModal from "@/hooks/use-store-modal";
+import { Button } from "./button";
 
 interface ModalProps {
   title: string;
@@ -24,20 +26,25 @@ const Modal = ({
   onClose,
   children,
 }: ModalProps) => {
+  const { onOpen } = useStoreModal();
+
   const onChange = () => {
-    if (!isOpen) {
+    if (isOpen) {
       onClose();
     }
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onChange}>
-      <DialogTrigger>Open</DialogTrigger>
+      <DialogTrigger onClick={onOpen}>
+        <Button variant="secondary">Create</Button>
+      </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
+        {children}
       </DialogContent>
     </Dialog>
   );
