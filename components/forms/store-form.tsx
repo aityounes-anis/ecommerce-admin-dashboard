@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import axios from "axios";
+import useStoreModal from "@/hooks/use-store-modal";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -31,6 +32,7 @@ const formSchema = z.object({
 const StoreForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { onClose } = useStoreModal();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,6 +50,7 @@ const StoreForm = () => {
       if (response.status === 201) {
         const storeId = response.data?.id;
         router.push(`/${storeId}`);
+        onClose();
       }
     } catch (error) {
       console.error(error);
