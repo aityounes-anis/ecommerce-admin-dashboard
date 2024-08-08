@@ -13,7 +13,11 @@ const HomePage = async () => {
       <h1 className="font-bold text-2xl my-4 mt-8">Stores</h1>
       <StoresList stores={stores} />
       <div>
-        <OpenModal btnLabel="Create new Store" logo={<Plus />} />
+        <OpenModal
+          btnLabel="Create new Store"
+          logo={<Plus />}
+          btnVariant="default"
+        />
       </div>
     </main>
   );

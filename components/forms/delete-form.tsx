@@ -19,9 +19,10 @@ import {
 import { Input } from "@/components/ui/input";
 import axios from "axios";
 import useStoreModal from "@/hooks/use-store-modal";
+import useDeleteModal from "@/hooks/use-delete-modal";
 
 interface FormProps {
-  btnLabel:
+  btnVariant:
     | "destructive"
     | "link"
     | "default"
@@ -38,9 +39,9 @@ const formSchema = z.object({
   }),
 });
 
-const DeleteForm = ({ btnLabel }: FormProps) => {
+const DeleteForm = ({ btnVariant }: FormProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { onClose } = useStoreModal();
+  const { onClose } = useDeleteModal();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -82,7 +83,7 @@ const DeleteForm = ({ btnLabel }: FormProps) => {
             </FormItem>
           )}
         />
-        <Button variant={btnLabel} type="submit" disabled={isLoading}>
+        <Button variant={btnVariant} type="submit" disabled={isLoading}>
           Delete
         </Button>
       </form>

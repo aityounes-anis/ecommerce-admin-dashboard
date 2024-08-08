@@ -1,11 +1,11 @@
 "use client";
 
-import useStoreModal from "@/hooks/use-store-modal";
 import Modal from "../ui/modal";
 import DeleteForm from "../forms/delete-form";
+import useDeleteModal from "@/hooks/use-delete-modal";
 
 const DeleteModal = () => {
-  const { isOpen, onClose } = useStoreModal();
+  const { isOpen, onClose } = useDeleteModal();
 
   return (
     <Modal
@@ -14,7 +14,7 @@ const DeleteModal = () => {
       isOpen={isOpen}
       onClose={onClose}
     >
-      <DeleteForm btnLabel="destructive" />
+      <DeleteForm btnVariant="destructive" />
     </Modal>
   );
 };

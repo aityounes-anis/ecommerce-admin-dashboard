@@ -9,12 +9,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Store } from "@prisma/client";
-import { Button } from "./button";
 import { Trash } from "lucide-react";
-import useStoreModal from "@/hooks/use-store-modal";
+import { Button } from "./button";
+import useDeleteModal from "@/hooks/use-delete-modal";
 
 const StoresList = ({ stores }: { stores: Store[] | undefined }) => {
-  const { onOpen } = useStoreModal();
+  const { onOpen } = useDeleteModal();
 
   return (
     <div className="grid grid-cols-2 gap-8 col-span-2">
@@ -36,11 +36,7 @@ const StoresList = ({ stores }: { stores: Store[] | undefined }) => {
               </div>
             </Link>
             <div>
-              <Button
-                variant="destructive"
-                className="mr-4 mb-2"
-                onClick={onOpen}
-              >
+              <Button variant="destructive" onClick={onOpen}>
                 <Trash />
               </Button>
             </div>
