@@ -59,3 +59,37 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: "Error Occured" }, { status: 500 });
   }
 }
+
+export async function DELETE(req: Request) {
+  try {
+    const { isAuthenticated } = getKindeServerSession();
+    const isUserAuthenticated = await isAuthenticated();
+
+    if (!isUserAuthenticated) {
+      return NextResponse.json({ message: "UnAuthorized" }, { status: 403 });
+    }
+
+    const { name } = await req.json();
+
+    if (!name) {
+      return NextResponse.json(
+        { message: "Name is required" },
+        { status: 400 }
+      );
+    }
+
+    await prismadb.store.deleteMany({
+      where: {
+        name,
+      },
+    });
+
+    return NextResponse.json({ message: "Deleted" }, { status: 201 });
+  } catch (error) {
+    console.log("[DELETE_STORE]", error);
+    return NextResponse.json(
+      { message: "Internal Error Occured." },
+      { status: 500 }
+    );
+  }
+}
