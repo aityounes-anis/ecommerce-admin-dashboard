@@ -78,6 +78,19 @@ export async function DELETE(req: Request) {
       );
     }
 
+    const store = await prismadb.store.findFirst({
+      where: {
+        name,
+      },
+    });
+
+    if (!store) {
+      return NextResponse.json(
+        { message: "This Store Does not Exist" },
+        { status: 404 }
+      );
+    }
+
     await prismadb.store.deleteMany({
       where: {
         name,

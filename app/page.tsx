@@ -1,5 +1,5 @@
 import { getAllStores } from "@/actions/get-stores";
-import OpenModal from "@/components/ui/open-modal";
+import OpenStoreModal from "@/components/ui/open-store-modal";
 import StoresList from "@/components/ui/stores-list";
 import { Plus } from "lucide-react";
 
@@ -13,7 +13,7 @@ const HomePage = async () => {
       <h1 className="font-bold text-2xl my-4 mt-8">Stores</h1>
       <StoresList stores={stores} />
       <div>
-        <OpenModal
+        <OpenStoreModal
           btnLabel="Create new Store"
           logo={<Plus />}
           btnVariant="default"

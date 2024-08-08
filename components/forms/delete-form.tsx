@@ -18,7 +18,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import axios from "axios";
-import useStoreModal from "@/hooks/use-store-modal";
 import useDeleteModal from "@/hooks/use-delete-modal";
 
 interface FormProps {
@@ -76,7 +75,7 @@ const DeleteForm = ({ btnVariant }: FormProps) => {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="E-commerce" {...field} />
+                <Input placeholder="Store Name" {...field} />
               </FormControl>
               <FormDescription>Enter the name of your Store.</FormDescription>
               <FormMessage />

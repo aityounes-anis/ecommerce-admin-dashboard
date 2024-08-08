@@ -17,7 +17,7 @@ interface OpenModalProps {
     | undefined;
 }
 
-const OpenModal = ({ btnLabel, logo, btnVariant }: OpenModalProps) => {
+const OpenStoreModal = ({ btnLabel, logo, btnVariant }: OpenModalProps) => {
   const { onOpen } = useStoreModal();
 
   return (
@@ -32,4 +32,4 @@ const OpenModal = ({ btnLabel, logo, btnVariant }: OpenModalProps) => {
   );
 };
 
-export default OpenModal;
+export default OpenStoreModal;
