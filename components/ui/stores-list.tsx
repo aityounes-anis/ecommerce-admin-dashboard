@@ -23,8 +23,8 @@ const StoresList = ({ stores }: { stores: Store[] | undefined }) => {
           key={store.id}
           className="cursor-pointer hover:bg-slate-100 transition hover:scale-105"
         >
-          <div className="flex items-end justify-between">
-            <Link href={`/${store?.id}`}>
+          <Link href={`/${store?.id}`}>
+            <div className="flex items-end justify-between">
               <div>
                 <CardHeader>
                   <CardTitle>{store.name}</CardTitle>
@@ -34,13 +34,12 @@ const StoresList = ({ stores }: { stores: Store[] | undefined }) => {
                   <p>{new Date(store.createdAt).toLocaleDateString()}</p>
                 </CardFooter>
               </div>
-            </Link>
-            <div>
-              <Button variant="destructive" onClick={onOpen}>
-                <Trash />
-              </Button>
+              <div></div>
             </div>
-          </div>
+          </Link>
+          <Button variant="destructive" onClick={onOpen}>
+            <Trash />
+          </Button>
         </Card>
       ))}
     </div>

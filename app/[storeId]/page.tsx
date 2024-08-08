@@ -7,13 +7,5 @@ export default async function StorePage({
 }) {
   const store = await getStore(params.storeId);
 
-  return (
-    <main>
-      <p>ID: {store?.id}</p>
-      <p>NAME: {store?.name}</p>
-      <p>DESCRIPTION: {store?.description}</p>
-      <p>CreatedAt: {store?.createdAt.toString()}</p>
-      <p>updatedAt: {store?.updatedAt.toString()}</p>
-    </main>
-  );
+  return <main>Dashboard</main>;
 }
