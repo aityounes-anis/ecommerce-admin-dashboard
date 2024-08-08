@@ -19,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import axios from "axios";
 import useDeleteModal from "@/hooks/use-delete-modal";
+import toast from "react-hot-toast";
 
 interface FormProps {
   btnVariant:
@@ -41,6 +42,7 @@ const formSchema = z.object({
 const DeleteForm = ({ btnVariant }: FormProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const { onClose } = useDeleteModal();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -58,9 +60,12 @@ const DeleteForm = ({ btnVariant }: FormProps) => {
 
       if (response.status === 201) {
         onClose();
+        toast.success("Store Deleted");
+        router.refresh();
       }
     } catch (error) {
       console.error(error);
+      toast.error("An Error Occured, please try again");
     } finally {
       setIsLoading(false);
     }

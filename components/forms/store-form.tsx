@@ -19,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import axios from "axios";
 import useStoreModal from "@/hooks/use-store-modal";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -51,9 +52,12 @@ const StoreForm = () => {
         const storeId = response.data?.id;
         router.push(`/${storeId}`);
         onClose();
+        toast.success("Store Created");
+        router.refresh();
       }
     } catch (error) {
       console.error(error);
+      toast.error("An Error occured, try again");
     } finally {
       setIsLoading(false);
     }

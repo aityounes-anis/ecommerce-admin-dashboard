@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import StoreModalProvider from "@/providers/store-modal-provider";
 import DeleteModalProvider from "@/providers/delete-modal-provider";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,10 @@ export default function RootLayout({
     <html lang="en">
       <StoreModalProvider />
       <DeleteModalProvider />
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Toaster />
+        {children}
+      </body>
     </html>
   );
 }
