@@ -4,6 +4,7 @@ import "./globals.css";
 import StoreModalProvider from "@/providers/store-modal-provider";
 import DeleteModalProvider from "@/providers/delete-modal-provider";
 import { Toaster } from "react-hot-toast";
+import ToasterProvider from "@/providers/toaster-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +23,7 @@ export default function RootLayout({
       <StoreModalProvider />
       <DeleteModalProvider />
       <body className={inter.className}>
-        <Toaster />
+        <ToasterProvider />
         {children}
       </body>
     </html>

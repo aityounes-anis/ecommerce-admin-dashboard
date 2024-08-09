@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import axios from "axios";
+import axios, { Axios, AxiosError } from "axios";
 import useDeleteModal from "@/hooks/use-delete-modal";
 import toast from "react-hot-toast";
 
@@ -33,16 +33,20 @@ interface FormProps {
     | undefined;
 }
 
+export interface ErrorResponse {
+  message: string;
+}
+
 const formSchema = z.object({
   name: z.string().min(1, {
-    message: "Name must contain at least 1 character.",
+    message: "Wrong Store Name.",
   }),
 });
 
 const DeleteForm = ({ btnVariant }: FormProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { onClose } = useDeleteModal();
   const router = useRouter();
+  const { onClose } = useDeleteModal();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -64,8 +68,12 @@ const DeleteForm = ({ btnVariant }: FormProps) => {
         router.refresh();
       }
     } catch (error) {
-      console.error(error);
-      toast.error("An Error Occured, please try again");
+      const err = error as AxiosError<ErrorResponse>;
+      const errorMessage =
+        err.response?.data?.message || "An Error occured, please try again.";
+
+      console.error(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }

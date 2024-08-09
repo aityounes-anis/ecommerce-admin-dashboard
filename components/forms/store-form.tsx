@@ -17,9 +17,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import useStoreModal from "@/hooks/use-store-modal";
 import toast from "react-hot-toast";
+import { ErrorResponse } from "./delete-form";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -56,8 +57,11 @@ const StoreForm = () => {
         router.refresh();
       }
     } catch (error) {
+      const err = error as AxiosError<ErrorResponse>;
+      const errorMessage =
+        err?.response?.data?.message || "An Error occured, please try again";
       console.error(error);
-      toast.error("An Error occured, try again");
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }
